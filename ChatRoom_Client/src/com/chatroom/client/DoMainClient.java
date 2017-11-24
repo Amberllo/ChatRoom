@@ -1,5 +1,6 @@
 package com.chatroom.client;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.Socket;
 
@@ -9,7 +10,8 @@ import java.net.Socket;
 public class DoMainClient {
     public static void main(String[] args) throws IOException {
         System.out.println("client init");
-        Socket socket = new Socket("127.0.0.1",7777);
-        socket.getOutputStream().write(11);
+        ChatClient client = new ChatClient();
+        client.connect();
+        client.showLoginView();
     }
 }
