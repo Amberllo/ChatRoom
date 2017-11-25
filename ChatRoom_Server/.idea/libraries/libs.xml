@@ -1,6 +1,7 @@
 <component name="libraryTable">
-  <library name="gson-2.8.2">
+  <library name="libs">
     <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/mysql-connector-java-5.1.44-bin.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/gson-2.8.2.jar!/" />
     </CLASSES>
     <JAVADOC />

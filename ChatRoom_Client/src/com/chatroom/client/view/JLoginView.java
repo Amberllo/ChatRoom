@@ -41,7 +41,7 @@ public class JLoginView extends JFrame {
 
         edt_username  =new JTextField();
         edt_username.setColumns(10);
-        edt_password  =new JTextField();
+        edt_password  =new JPasswordField();
         edt_password.setColumns(10);
         button = new JButton("登录");
 

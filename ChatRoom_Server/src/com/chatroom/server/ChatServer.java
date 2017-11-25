@@ -2,6 +2,7 @@ package com.chatroom.server;
 
 import com.chatroom.server.model.UserBean;
 import com.chatroom.server.protocol.Protocol;
+import com.chatroom.server.protocol.ProtocolResult;
 import com.chatroom.server.repository.UserRepository;
 
 import java.io.*;
@@ -43,9 +44,10 @@ public class ChatServer {
 
     class ServerThread extends Thread {
         Socket socket;
-
+        Protocol protocol;
         public ServerThread(Socket socket) {
             this.socket = socket;
+            protocol = new Protocol();
         }
 
         public void run() {
@@ -57,26 +59,17 @@ public class ChatServer {
                     InputStream is = socket.getInputStream();
                     if (is.available() > 0) {
 
-                        byte[] data = readStream(socket.getInputStream());
-                        String json = new String(data,"UTF-8");
-                        System.out.println(json);
-                        Protocol.doPost(json);
+                        String json = readStream(socket.getInputStream());
+                        System.out.println("request data :"+json);
+                        ProtocolResult result = protocol.doPost(json);
+                        if(result!=null){
+                            write(socket.getOutputStream(),result.toJson());
+                        }else{
+                            write(socket.getOutputStream(),ProtocolResult.unknowResult());
+                        }
                     }
-                    System.out.println("server is waiting ...");
                     sleep(2000);
                 }
-
-
-//                DBHelper dbHelper = new DBHelper();
-//                dbHelper.openDB();
-//                UserRepository userRepository = new UserRepository(dbHelper);
-//                List<UserBean> friends = userRepository.getFriends("40cc998f-9b57-4bff-a1de-23c3de0cc785");
-//                for(UserBean friend:friends){
-//                    System.out.println("好友："+friend.getNickname()+" 状态: "+friend.getState().text);
-//                }
-//                dbHelper.close();
-//                System.out.println("已经返回给客户端！");
-
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -93,15 +86,28 @@ public class ChatServer {
      * @return 字节数组
      * @throws Exception
      */
-    public static byte[] readStream(InputStream inStream) throws Exception {
+    public static String readStream(InputStream inStream) throws Exception {
         int count = 0;
         while (count == 0) {
             count = inStream.available();
         }
         byte[] b = new byte[count];
         inStream.read(b);
-        return b;
+        String json = new String(b,"UTF-8");
+        return json;
     }
 
+
+    public void write(OutputStream outputStream,String json) {
+
+        try {
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
+            BufferedWriter writer = new BufferedWriter(outputStreamWriter);
+            writer.write(json);
+            writer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

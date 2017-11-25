@@ -56,4 +56,35 @@ public class UserRepository extends AbstractRepository{
         return friends;
 
     }
+
+    public UserBean auth(String username, String password) {
+        String sql = "select * from t_user where username = '"+username+"' && password = '"+password+"'";
+        UserBean userBean = new UserBean();
+        PreparedStatement statement = dbHelper.execSql(sql);
+        if(statement!=null){
+            try {
+                ResultSet set = statement.executeQuery();
+                while (set.next()) {
+                    String _userid = set.getString("userid");
+                    String _username = set.getString("username");
+                    String _password = set.getString("password");
+                    String _nickname = set.getString("nickname");
+                    int _state = set.getInt("state");
+                    userBean.setUserid(_userid);
+                    userBean.setNickname(_nickname);
+                    userBean.setPassword(_password);
+                    userBean.setUsername(_username);
+                    userBean.setState(_state==0? UserBean.UserState.Offline: UserBean.UserState.Online);
+
+                }//显示数据
+                set.close();
+                statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }
+        return userBean;
+    }
+
 }
