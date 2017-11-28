@@ -1,8 +1,9 @@
 package com.chatroom.client.protocol;
 
-//import com.chatroom.server.controller.AbstractController;
-//import com.chatroom.server.controller.UserController;
+import com.chatroom.client.ChatClient;
 import com.chatroom.client.contoller.AbstractController;
+import com.chatroom.client.contoller.UserController;
+import com.google.gson.Gson;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,20 +15,15 @@ public class Protocol {
 
     public String resource;
     public String action;
-    public Map<String,String> params = new HashMap<>();
+    public Map<String,String> params;
 
-    public static Protocol doPost(String resource,String action,Map<String,String> params){
-        Protocol controller = new Protocol();
-        controller.resource = resource;
-        controller.action = action;
-        controller.params = params;
-        return controller;
+
+
+    public static String doPost(String resource, String action, Map<String, String> params) {
+        Protocol protocol = new Protocol();
+        protocol.params = params;
+        protocol.action = action;
+        protocol.resource = resource;
+        return new Gson().toJson(protocol);
     }
-
-//    static Map<String,AbstractController> apis = null;
-//    static{
-//        apis = new HashMap<>();
-//        apis.put("User",new UserController());
-//    }
-
 }

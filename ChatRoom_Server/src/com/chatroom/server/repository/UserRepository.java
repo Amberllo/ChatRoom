@@ -58,8 +58,8 @@ public class UserRepository extends AbstractRepository{
     }
 
     public UserBean auth(String username, String password) {
-        String sql = "select * from t_user where username = '"+username+"' && password = '"+password+"'";
-        UserBean userBean = new UserBean();
+        String sql = "select * from t_user where username = '"+username+"' and password = '"+password+"'";
+        UserBean userBean = null;
         PreparedStatement statement = dbHelper.execSql(sql);
         if(statement!=null){
             try {
@@ -69,12 +69,11 @@ public class UserRepository extends AbstractRepository{
                     String _username = set.getString("username");
                     String _password = set.getString("password");
                     String _nickname = set.getString("nickname");
-                    int _state = set.getInt("state");
+                    userBean = new UserBean();
                     userBean.setUserid(_userid);
                     userBean.setNickname(_nickname);
                     userBean.setPassword(_password);
                     userBean.setUsername(_username);
-                    userBean.setState(_state==0? UserBean.UserState.Offline: UserBean.UserState.Online);
 
                 }//显示数据
                 set.close();

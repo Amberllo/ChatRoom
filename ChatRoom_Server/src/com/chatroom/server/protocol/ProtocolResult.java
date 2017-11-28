@@ -14,6 +14,8 @@ public class ProtocolResult {
 
     public int resultCode;
     public String errorMsg;
+    public String resource;
+    public String actin;
     public Object resultParams;
 
     public ProtocolResult(String errorMsg){

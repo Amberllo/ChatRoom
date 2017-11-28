@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.chatroom.server.protocol.ProtocolResult.Code_Error;
+
 /**
  * Created by Administrator on 2017/11/19 0019.
  */
@@ -48,16 +50,22 @@ public class UserController extends AbstractController{
         String password = params.get("password");
 
         ProtocolResult result = new ProtocolResult();
+        result.resource = "User";
+        result.actin = "auth";
         if(username == null || "".equals(username)){
-            return new ProtocolResult("用户名不能为空");
+            result.errorMsg = "用户名不能为空";
+            result.resultCode = Code_Error;
+        }else{
+            UserBean userBean = userRepository.auth(username,password);
+            if(userBean==null){
+                result.errorMsg = "用户名或密码不正确";
+                result.resultCode = Code_Error;
+            }else{
+                result.resultParams = userBean;
+            }
         }
 
-        UserBean userBean = userRepository.auth(username,password);
-        if(userBean==null){
-            return new ProtocolResult("用户名或密码不正确");
-        }else{
-            result.resultParams = userBean;
-        }
+
         return result;
     }
 

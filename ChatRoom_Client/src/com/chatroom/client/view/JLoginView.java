@@ -11,7 +11,6 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.OutputStreamWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,18 +57,10 @@ public class JLoginView extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-
                 String username = edt_username.getText();
                 String password = edt_password.getText();
-                System.out.println("usernamme = "+username+" password = "+password);
 
-
-                Map<String,String> params = new HashMap<>();
-                params.put("username",username);
-                params.put("password",password);
-                Protocol protocol = Protocol.doPost("User","auth",params);
-
-                chatClient.write(new Gson().toJson(protocol));
+                chatClient.user.auth(username,password);
             }
         });
     }

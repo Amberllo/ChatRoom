@@ -1,6 +1,9 @@
 package com.chatroom.client;
 
+import com.chatroom.client.contoller.AbstractController;
+import com.chatroom.client.contoller.UserController;
 import com.chatroom.client.protocol.Protocol;
+import com.chatroom.client.protocol.ProtocolResult;
 import com.chatroom.client.view.JLoginView;
 import com.google.gson.Gson;
 
@@ -10,6 +13,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
 
 import static java.lang.Thread.sleep;
 
@@ -17,9 +22,20 @@ import static java.lang.Thread.sleep;
  * Created by Administrator on 2017/11/18 0018.
  */
 public class ChatClient {
-    Socket socket;
+    private Socket socket;
+    public UserController user;
+    JLoginView jLoginView;
+    Map<String,AbstractController> controllers = new HashMap<>();
+
+
+    public ChatClient(){
+        user = new UserController(this);
+        controllers.put("user",user);
+    }
+
+
     public  void showLoginView(){
-        new JLoginView(this);
+        jLoginView = new JLoginView(this);
     }
 
     public void connect() throws IOException {
@@ -28,14 +44,14 @@ public class ChatClient {
             @Override
             public void run() {
                 try {
-                    while (socket != null && !socket.isClosed() && !socket.isConnected()) {
+                    while (socket != null && !socket.isClosed() && socket.isConnected()) {
                         InputStream is = socket.getInputStream();
                         if (is.available() > 0) {
 
                             String json = readStream(socket.getInputStream());
+                            handleResponse(json);
                             System.out.println("response data :"+json);
                         }
-                        System.out.println("Client is Running");
                         sleep(1000);
                     }
 
@@ -44,11 +60,13 @@ public class ChatClient {
                 }
 
             }
-        });
+
+
+        }).start();
 
     }
 
-    public void write(String json) {
+    private void write(String json) {
 
         try {
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(socket.getOutputStream());
@@ -66,7 +84,7 @@ public class ChatClient {
      * @return 字节数组
      * @throws Exception
      */
-    public static String readStream(InputStream inStream) throws Exception {
+    private static String readStream(InputStream inStream) throws Exception {
         int count = 0;
         while (count == 0) {
             count = inStream.available();
@@ -77,4 +95,35 @@ public class ChatClient {
         return json;
     }
 
+
+
+    public AbstractController getController(String api){
+        AbstractController controller = controllers.get(api.toLowerCase());
+        return controller;
+    }
+
+    public void handleResponse(String json){
+        try{
+            Gson gson = new Gson();
+            ProtocolResult result = gson.fromJson(json,ProtocolResult.class);
+            AbstractController controller = getController(result.resource);
+            if(controller!=null){
+                controller.handleResponse(result);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void doPost(String resource, String action, Map<String, String> params) {
+        write(Protocol.doPost(resource,action,params));
+    }
+
+    public void hideLoginView() {
+        jLoginView.setVisible(false);
+    }
+
+    public void showMainView() {
+
+    }
 }
