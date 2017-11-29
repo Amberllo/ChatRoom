@@ -24,7 +24,14 @@ public class JLoginView extends JFrame {
     public JLoginView(ChatClient chatClient){
         this.chatClient = chatClient;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setBounds(200, 100, 250, 180);
+        //获取屏幕大小
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
+        this.setSize(200,200);
+        //让窗口居中显示
+        this.setLocation(screenSize.width/2-200/2,screenSize.height/2-200/2);
+
+
         JPanel contentPane=new JPanel();  
         contentPane.setBorder(new EmptyBorder(5,5,5,5));
         this.setContentPane(contentPane);  
@@ -51,8 +58,6 @@ public class JLoginView extends JFrame {
         panel_password.add(edt_password);
         panel_button.add(button);
 
-        this.setVisible(true);
-
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -65,4 +70,11 @@ public class JLoginView extends JFrame {
         });
     }
 
+    public void onShow(){
+        setVisible(true);
+    }
+
+    public void onHide(){
+        setVisible(false);
+    }
 }  

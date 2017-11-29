@@ -5,6 +5,7 @@ import com.chatroom.client.contoller.UserController;
 import com.chatroom.client.protocol.Protocol;
 import com.chatroom.client.protocol.ProtocolResult;
 import com.chatroom.client.view.JLoginView;
+import com.chatroom.client.view.JMainView;
 import com.google.gson.Gson;
 
 import javax.swing.*;
@@ -24,18 +25,18 @@ import static java.lang.Thread.sleep;
 public class ChatClient {
     private Socket socket;
     public UserController user;
-    JLoginView jLoginView;
+    public JLoginView jLoginView;
+    public JMainView jMainView;
     Map<String,AbstractController> controllers = new HashMap<>();
 
 
     public ChatClient(){
         user = new UserController(this);
         controllers.put("user",user);
-    }
 
 
-    public  void showLoginView(){
         jLoginView = new JLoginView(this);
+        jMainView = new JMainView(this);
     }
 
     public void connect() throws IOException {
@@ -119,11 +120,4 @@ public class ChatClient {
         write(Protocol.doPost(resource,action,params));
     }
 
-    public void hideLoginView() {
-        jLoginView.setVisible(false);
-    }
-
-    public void showMainView() {
-
-    }
 }

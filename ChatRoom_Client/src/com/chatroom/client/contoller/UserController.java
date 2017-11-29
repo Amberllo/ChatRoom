@@ -1,11 +1,18 @@
 package com.chatroom.client.contoller;
 
 import com.chatroom.client.ChatClient;
-import com.chatroom.client.protocol.Protocol;
+import com.chatroom.client.model.UserBean;
 import com.chatroom.client.protocol.ProtocolResult;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import javax.swing.*;
+import java.awt.*;
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.chatroom.client.protocol.ProtocolResult.Code_Success;
@@ -25,19 +32,40 @@ public class UserController extends AbstractController{
             case "auth":
                 onAuth(result);
                 break;
+            case "friends":
+                onFriends(result);
+                break;
         }
     }
 
     private void onAuth(ProtocolResult result) {
         if(result.resultCode == Code_Success){
-            client.hideLoginView();
-            client.showMainView();
+            UserBean userBean = new Gson().fromJson(result.resultParams,UserBean.class);
+            client.jLoginView.onHide();
+            client.jMainView.onShow();
+            client.jMainView.setUserBean(userBean);
+            client.jMainView.initView();
         }else{
             JDialog dialog = new JDialog();
             dialog.setTitle("警告");
             dialog.add(new JLabel(result.errorMsg));
-            dialog.setBounds(300,200,100,100);
+
+            //获取屏幕大小
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
+            dialog.setSize(150,100);
+            //让窗口居中显示
+            dialog.setLocation(screenSize.width/2-150/2,screenSize.height/2-150/2);
             dialog.setVisible(true);
+        }
+    }
+
+    private void onFriends(ProtocolResult result){
+        if(result.resultCode == Code_Success){
+            Type type = new TypeToken<List<UserBean>>() {}.getType();
+
+            List<UserBean> friends = new Gson().fromJson(result.resultParams,type);
+            client.jMainView.setFriends(friends);
         }
     }
 
@@ -45,6 +73,18 @@ public class UserController extends AbstractController{
         Map<String,String> params = new HashMap<>();
         params.put("username",username);
         params.put("password",password);
-        client.doPost("User","auth",params);
+        try {
+            client.connect();
+            client.doPost("User","auth",params);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void friends(String userid) {
+        Map<String,String> params = new HashMap<>();
+        params.put("userid",userid);
+        client.doPost("User","friends",params);
     }
 }

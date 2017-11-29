@@ -11,7 +11,6 @@ public class DoMainClient {
     public static void main(String[] args) throws IOException {
         System.out.println("client init");
         ChatClient client = new ChatClient();
-        client.connect();
-        client.showLoginView();
+        client.jLoginView.onShow();
     }
 }

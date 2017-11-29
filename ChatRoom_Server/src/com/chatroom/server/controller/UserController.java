@@ -32,13 +32,13 @@ public class UserController extends AbstractController{
     }
 
     private ProtocolResult friends(Map<String, String> params) {
-
-        String userid = params.get("userid");
-        List<UserBean> friends = userRepository.getFriends(userid);
-        for(UserBean friend:friends){
-            System.out.println("好友："+friend.getNickname()+" 状态: "+friend.getState().text);
-        }
         ProtocolResult result = new ProtocolResult();
+        result.resource = "User";
+        result.actin = "friends";
+        String userid = params.get("userid");
+//        for(UserBean friend:friends){
+//            System.out.println("好友："+friend.getNickname()+" 状态: "+friend.getState().text);
+//        }
         result.resultParams = userRepository.getFriends(userid);
         return result;
     }

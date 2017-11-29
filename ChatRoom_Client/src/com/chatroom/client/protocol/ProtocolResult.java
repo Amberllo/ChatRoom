@@ -1,6 +1,7 @@
 package com.chatroom.client.protocol;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 
 import java.util.Map;
 
@@ -16,7 +17,7 @@ public class ProtocolResult {
     public String errorMsg;
     public String resource;
     public String actin;
-    public Object resultParams;
+    public JsonElement resultParams;
 
     public ProtocolResult(String errorMsg){
         this.errorMsg = errorMsg;
@@ -33,7 +34,7 @@ public class ProtocolResult {
         return result.toJson();
     }
 
-    public void setResult(Object resultParams){
+    public void setResult(JsonElement resultParams){
         this.resultParams = resultParams;
     }
 
