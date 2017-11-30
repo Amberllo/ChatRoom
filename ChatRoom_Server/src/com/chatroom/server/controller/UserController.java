@@ -62,6 +62,8 @@ public class UserController extends AbstractController{
                 result.resultCode = Code_Error;
             }else{
                 result.resultParams = userBean;
+
+
             }
         }
 

@@ -1,9 +1,11 @@
 package com.chatroom.client;
 
 import com.chatroom.client.contoller.AbstractController;
+import com.chatroom.client.contoller.MessageController;
 import com.chatroom.client.contoller.UserController;
 import com.chatroom.client.protocol.Protocol;
 import com.chatroom.client.protocol.ProtocolResult;
+import com.chatroom.client.view.JChatRoomView;
 import com.chatroom.client.view.JLoginView;
 import com.chatroom.client.view.JMainView;
 import com.google.gson.Gson;
@@ -25,15 +27,20 @@ import static java.lang.Thread.sleep;
 public class ChatClient {
     private Socket socket;
     public UserController user;
+    public MessageController message;
+
     public JLoginView jLoginView;
     public JMainView jMainView;
-    Map<String,AbstractController> controllers = new HashMap<>();
+    public JChatRoomView jChatRoomView;
 
+    public Map<String,AbstractController> controllers = new HashMap<>();
 
     public ChatClient(){
         user = new UserController(this);
-        controllers.put("user",user);
+        message = new MessageController(this);
 
+        controllers.put("user",user);
+        controllers.put("message",message);
 
         jLoginView = new JLoginView(this);
         jMainView = new JMainView(this);

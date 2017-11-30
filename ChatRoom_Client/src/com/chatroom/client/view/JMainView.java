@@ -4,7 +4,13 @@ import com.chatroom.client.ChatClient;
 import com.chatroom.client.model.UserBean;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.awt.event.FocusListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.*;
 import java.util.List;
 
@@ -63,9 +69,7 @@ public class JMainView extends JFrame{
         setVisible(false);
     }
 
-    public static void  main(String[] args){
-        new JMainView(null).onShow();
-    }
+
 
     public void initView() {
         chatClient.user.friends(userBean.getUserid());
@@ -82,6 +86,48 @@ public class JMainView extends JFrame{
             listModel.addElement(friend.getNickname() +" -- "+friend.getState().text);
         }
         JList<String> list = new JList<>(listModel);
+        list.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if(e.getClickCount() >= 2){
+
+                    int position = list.getSelectedIndex();
+                    UserBean friend = friends.get(position);
+                    System.out.println(" open chatroom "+friend.getNickname());
+                    chatClient.jChatRoomView = new JChatRoomView(chatClient,userBean,friend);
+                    chatClient.jChatRoomView.onShow();
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
         scrollPane.setViewportView(list);
     }
+
+
+    public static void  main(String[] args){
+
+        UserBean userBean = new UserBean();
+        JMainView mainView = new JMainView(null);
+        mainView.onShow();
+    }
+
 }

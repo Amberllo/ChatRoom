@@ -2,6 +2,7 @@ package com.chatroom.server.protocol;
 
 import com.chatroom.server.DBHelper;
 import com.chatroom.server.controller.AbstractController;
+import com.chatroom.server.controller.MessageController;
 import com.chatroom.server.controller.UserController;
 import com.google.gson.Gson;
 
@@ -21,6 +22,7 @@ public class Protocol {
     public Protocol(){
         dbHelper = new DBHelper();
         api.put("user",new UserController(dbHelper));
+        api.put("message",new MessageController(dbHelper));
     }
 
     public ProtocolResult doPost(String json){

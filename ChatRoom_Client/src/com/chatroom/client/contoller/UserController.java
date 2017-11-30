@@ -63,7 +63,6 @@ public class UserController extends AbstractController{
     private void onFriends(ProtocolResult result){
         if(result.resultCode == Code_Success){
             Type type = new TypeToken<List<UserBean>>() {}.getType();
-
             List<UserBean> friends = new Gson().fromJson(result.resultParams,type);
             client.jMainView.setFriends(friends);
         }
