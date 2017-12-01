@@ -34,6 +34,9 @@ public class MessageController extends AbstractController{
         result.resource = "message";
         result.actin = "sendMessage";
 
+//        String userid = params.get("userid");
+//        String friendid = params.get("friendid");
+
         return result;
     }
 

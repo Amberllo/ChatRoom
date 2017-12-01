@@ -1,11 +1,14 @@
 package com.chatroom.client.view;
 
 import com.chatroom.client.ChatClient;
+import com.chatroom.client.DateUtils;
 import com.chatroom.client.model.MessageBean;
 import com.chatroom.client.model.UserBean;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.*;
 import java.util.List;
 
@@ -34,8 +37,14 @@ public class JChatRoomView extends JFrame {
         edt_content = new JTextField();
         panel_message = new JPanel();
         layout_gridbag = new GridBagLayout();
+        panel_message.setLayout(new BoxLayout(panel_message,BoxLayout.Y_AXIS));
 
-
+        btn_submit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                sendMessage();
+            }
+        });
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //获取屏幕大小
@@ -51,9 +60,6 @@ public class JChatRoomView extends JFrame {
         this.add(panel_message);
         this.add(edt_content);
         this.add(btn_submit);
-
-//        panel_message.setBackground(Color.WHITE);
-        panel_message.setLayout(new BoxLayout(panel_message,BoxLayout.Y_AXIS));
 
         GridBagConstraints constraints= new GridBagConstraints();//定义一个GridBagConstraints，
         //是用来控制添加进的组件的显示位置
@@ -77,8 +83,24 @@ public class JChatRoomView extends JFrame {
         constraints.weighty=0;
         layout_gridbag.setConstraints(btn_submit, constraints);
 
+    }
 
+    private void sendMessage() {
+        String text = edt_content.getText();
+        if(text!=null && !"".equals(text)){
 
+            MessageBean messageBean = new MessageBean();
+            messageBean.setContent(text);
+            messageBean.setMsgid(UUID.randomUUID().toString());
+            messageBean.setSender(userBean.getUserid());
+            messageBean.setReceiver(friend.getUserid());
+            messageBean.setSendtime(DateUtils.getTime());
+
+            chatClient.message.sendMessage(messageBean);
+
+            edt_content.setText("");
+            edt_content.revalidate();
+        }
 
     }
 

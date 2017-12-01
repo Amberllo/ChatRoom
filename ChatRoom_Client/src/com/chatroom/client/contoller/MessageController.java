@@ -42,11 +42,18 @@ public class MessageController extends AbstractController{
 
     private void onSendMessage(ProtocolResult result) {
         System.out.println("onSendMessage");
+
     }
 
 
-    public void sendMessage(){
-
+    public void sendMessage(MessageBean messageBean){
+        Map<String,String> param = new HashMap<>();
+        param.put("sender",messageBean.getSender());
+        param.put("sendtime",messageBean.getSendtime());
+        param.put("content",messageBean.getContent());
+        param.put("receiver",messageBean.getReceiver());
+        param.put("msgid",messageBean.getMsgid());
+        client.doPost("message","sendMessage",param);
     }
 
     public void getMessage(UserBean me,UserBean friend) {
