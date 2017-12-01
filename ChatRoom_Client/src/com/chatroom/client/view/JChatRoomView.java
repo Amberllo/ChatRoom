@@ -17,7 +17,10 @@ public class JChatRoomView extends JFrame {
     private UserBean userBean;
     private UserBean friend;
 
+    private JButton btn_submit;
+    private JPanel panel_message;
     private JTextField edt_content;
+    private GridBagLayout layout_gridbag;
     JChatRoomView(ChatClient chatClient, UserBean userBean, UserBean friend){
         this.chatClient = chatClient;
         this.userBean = userBean;
@@ -26,6 +29,14 @@ public class JChatRoomView extends JFrame {
     }
 
     private void init(){
+
+        btn_submit = new JButton("send");
+        edt_content = new JTextField();
+        panel_message = new JPanel();
+        layout_gridbag = new GridBagLayout();
+
+
+
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //获取屏幕大小
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -35,25 +46,39 @@ public class JChatRoomView extends JFrame {
         //让窗口居中显示
         this.setLocation(screenSize.width/2-width/2,screenSize.height/2-height/2);
         this.setTitle(friend.getNickname());
+        this.setLayout(layout_gridbag);
 
-        JPanel container = new JPanel();
-        this.setContentPane(container);
-        this.getContentPane().setLayout(new BorderLayout(0,0));
+        this.add(panel_message);
+        this.add(edt_content);
+        this.add(btn_submit);
+
+//        panel_message.setBackground(Color.WHITE);
+        panel_message.setLayout(new BoxLayout(panel_message,BoxLayout.Y_AXIS));
+
+        GridBagConstraints constraints= new GridBagConstraints();//定义一个GridBagConstraints，
+        //是用来控制添加进的组件的显示位置
+        constraints.fill = GridBagConstraints.BOTH;
+        //该方法是为了设置如果组件所在的区域比组件本身要大时的显示情况
+        //NONE：不调整组件大小。
+        //HORIZONTAL：加宽组件，使它在水平方向上填满其显示区域，但是不改变高度。
+        //VERTICAL：加高组件，使它在垂直方向上填满其显示区域，但是不改变宽度。
+        //BOTH：使组件完全填满其显示区域。
+        constraints.gridwidth=0;//该方法是设置组件水平所占用的格子数，如果为0，就说明该组件是该行的最后一个
+        constraints.weightx = 1;//该方法设置组件水平的拉伸幅度，如果为0就说明不拉伸，不为0就随着窗口增大进行拉伸，0到1之间
+        constraints.weighty=1;//该方法设置组件垂直的拉伸幅度，如果为0就说明不拉伸，不为0就随着窗口增大进行拉伸，0到1之间
+        layout_gridbag.setConstraints(panel_message, constraints);//设置组件
+
+        constraints.gridwidth=1;
+        constraints.weightx = 1;
+        constraints.weighty=0;
+        layout_gridbag.setConstraints(edt_content, constraints);
+        constraints.gridwidth=1;
+        constraints.weightx = 0;
+        constraints.weighty=0;
+        layout_gridbag.setConstraints(btn_submit, constraints);
 
 
 
-        JPanel panel_message = new JPanel();
-        panel_message.setSize(width,400);
-
-        edt_content = new JTextField();
-        Dimension  dimension = new Dimension();
-        dimension.width = width;
-        dimension.height = 100;
-        edt_content.setSize(dimension);
-
-
-        container.add(panel_message);
-        container.add(edt_content);
 
     }
 
@@ -69,6 +94,24 @@ public class JChatRoomView extends JFrame {
     public void setMessages(List<MessageBean> messages) {
        for (MessageBean msg:messages){
            System.out.println(msg.getContent());
+           JLabel text = new JLabel(msg.getSendtime()+ " "+msg.getSendername()+" \n "+msg.getContent()+" \n ");
+           panel_message.add(text);
        }
+        panel_message.revalidate();
+    }
+    public static void main(String[] args){
+        UserBean userBean = new UserBean();
+        userBean.setNickname("张三");
+        userBean.setUsername("zhangsan");
+        userBean.setUserid(UUID.randomUUID().toString());
+        userBean.setPassword("123");
+
+        UserBean friend = new UserBean();
+        friend.setNickname("李四");
+        friend.setUsername("lisi");
+        friend.setUserid(UUID.randomUUID().toString());
+        friend.setPassword("123");
+        JChatRoomView chatRoomView = new JChatRoomView(null,userBean,friend);
+        chatRoomView.setVisible(true);
     }
 }

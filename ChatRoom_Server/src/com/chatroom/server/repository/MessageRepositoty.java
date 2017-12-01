@@ -22,8 +22,8 @@ public class MessageRepositoty extends AbstractRepository{
 
     public List<MessageBean> getMessage(String userid, String friendid) {
         List<MessageBean> messages = new ArrayList<>();
-        String sql = "SELECT t_message.*, t_user.nickname AS receivername FROM t_message " +
-                " LEFT JOIN t_user ON t_message.receiver = t_user.userid " +
+        String sql = "SELECT t_message.*, t_user.nickname AS sendername FROM t_message " +
+                " LEFT JOIN t_user ON t_message.sender = t_user.userid " +
                 " WHERE ( sender = '"+userid+"' AND receiver = '"+friendid+"' )" +
                 " OR ( receiver = '"+userid+"' AND sender = '"+friendid+"' )" +
                 " ORDER BY sendtime ASC";
@@ -36,7 +36,7 @@ public class MessageRepositoty extends AbstractRepository{
                     String msgid = set.getString("msgid");
                     String sender = set.getString("sender");
                     String receiver = set.getString("receiver");
-                    String receivername = set.getString("receivername");
+                    String sendername = set.getString("sendername");
                     String sendtime = set.getString("sendtime");
                     String content = set.getString("content");
 
@@ -45,7 +45,7 @@ public class MessageRepositoty extends AbstractRepository{
                     messageBean.setSender(sender);
                     messageBean.setSendtime(sendtime);
                     messageBean.setReceiver(receiver);
-                    messageBean.setReceivername(receivername);
+                    messageBean.setSendername(sendername);
                     messageBean.setContent(content);
                     messages.add(messageBean);
                 }//显示数据

@@ -8,11 +8,11 @@ import java.io.Serializable;
 public class MessageBean implements Serializable{
     private String msgid;
     private String sender;
+    private String sendername;
     private String sendtime;
     private String content;
 
     private String receiver;
-    private String receivername;
 
     public String getContent() {
         return content;
@@ -54,11 +54,11 @@ public class MessageBean implements Serializable{
         this.msgid = msgid;
     }
 
-    public String getReceivername() {
-        return receivername;
+    public String getSendername() {
+        return sendername;
     }
 
-    public void setReceivername(String receivername) {
-        this.receivername = receivername;
+    public void setSendername(String sendername) {
+        this.sendername = sendername;
     }
 }

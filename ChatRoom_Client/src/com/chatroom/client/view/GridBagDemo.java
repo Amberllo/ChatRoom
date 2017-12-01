@@ -48,7 +48,7 @@ public class GridBagDemo extends JFrame {
         s.weightx = 0;//该方法设置组件水平的拉伸幅度，如果为0就说明不拉伸，不为0就随着窗口增大进行拉伸，0到1之间
         s.weighty=0;//该方法设置组件垂直的拉伸幅度，如果为0就说明不拉伸，不为0就随着窗口增大进行拉伸，0到1之间
         layout.setConstraints(j1, s);//设置组件
-        s.gridwidth=1;
+        s.gridwidth=10;
         s.weightx = 0;
         s.weighty=0;
         layout.setConstraints(j2, s);
