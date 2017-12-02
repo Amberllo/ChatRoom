@@ -1,5 +1,6 @@
 package com.chatroom.server.protocol;
 
+import com.chatroom.server.controller.GroupController;
 import com.chatroom.server.core.ChatServer;
 import com.chatroom.server.DBHelper;
 import com.chatroom.server.controller.AbstractController;
@@ -24,6 +25,7 @@ public class Protocol {
         dbHelper = new DBHelper();
         api.put("user",new UserController(server,dbHelper));
         api.put("message",new MessageController(server,dbHelper));
+        api.put("group",new GroupController(server,dbHelper));
     }
 
     public ProtocolResult doPost(String json){
