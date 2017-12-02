@@ -4,6 +4,7 @@ import com.chatroom.client.ChatClient;
 import com.chatroom.client.model.UserBean;
 import com.chatroom.client.protocol.ProtocolResult;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import javax.swing.*;
@@ -116,13 +117,13 @@ public class UserController extends AbstractController{
     }
 
     private void onOnline(ProtocolResult result) {
-//        String userid = (String)result.resultParams;
-        System.out.println(result.resultParams);
+        String userid = result.resultParams.getAsJsonObject().get("userid").getAsString();
+        client.jMainView.online(userid);
     }
 
     private void onOffline(ProtocolResult result) {
-//        String userid = (String)result.resultParams;
-        System.out.println(result.resultParams);
+        String userid = result.resultParams.getAsJsonObject().get("userid").getAsString();
+        client.jMainView.offline(userid);
     }
 
 

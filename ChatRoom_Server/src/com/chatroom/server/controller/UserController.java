@@ -77,7 +77,7 @@ public class UserController extends AbstractController{
         result.resultParams = params;
         String userid = params.get("userid");
         userRepository.userState(userid,true);
-//        server.sendBroadcast("User","online",result.resultParams);
+        server.sendBroadcast("User","online",result.resultParams);
         return result;
     }
 
@@ -88,7 +88,7 @@ public class UserController extends AbstractController{
         result.resultParams = params;
         String userid = params.get("userid");
         userRepository.userState(userid,false);
-//        server.sendBroadcast("User","offline",result.resultParams);
+        server.sendBroadcast("User","offline",result.resultParams);
         return result;
     }
 }

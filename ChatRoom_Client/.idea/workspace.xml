@@ -26,13 +26,17 @@
       <file leaf-file-name="JMainView.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/chatroom/client/view/JMainView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="305">
-              <caret line="200" column="50" lean-forward="true" selection-start-line="200" selection-start-column="50" selection-end-line="200" selection-end-column="50" />
+            <state relative-caret-position="353">
+              <caret line="260" column="88" lean-forward="true" selection-start-line="260" selection-start-column="88" selection-end-line="260" selection-end-column="89" />
               <folding>
-                <element signature="e#2787#2788#0" expanded="true" />
-                <element signature="e#2819#2820#0" expanded="true" />
-                <element signature="e#5882#5883#0" expanded="true" />
-                <element signature="e#5950#5951#0" expanded="true" />
+                <element signature="e#2913#2914#0" expanded="true" />
+                <element signature="e#2945#2946#0" expanded="true" />
+                <element signature="class#4279:5090" expanded="false" />
+                <element signature="class#5135:5884" expanded="false" />
+                <element signature="class#5927:6691" expanded="false" />
+                <element signature="e#6012#6013#0" expanded="true" />
+                <element signature="e#6080#6081#0" expanded="true" />
+                <element signature="method#windowClosing#0;class#5927:6691" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -125,8 +129,8 @@
       <file leaf-file-name="UserController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/chatroom/client/contoller/UserController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="310">
-              <caret line="114" column="36" lean-forward="false" selection-start-line="114" selection-start-column="36" selection-end-line="114" selection-end-column="36" />
+            <state relative-caret-position="535">
+              <caret line="125" column="31" lean-forward="true" selection-start-line="125" selection-start-column="31" selection-end-line="125" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -193,8 +197,8 @@
         <option value="$PROJECT_DIR$/src/com/chatroom/client/contoller/GroupController.java" />
         <option value="$PROJECT_DIR$/src/com/chatroom/client/view/JTabbedPanel.java" />
         <option value="$PROJECT_DIR$/src/com/chatroom/client/view/JChatRoomView.java" />
-        <option value="$PROJECT_DIR$/src/com/chatroom/client/contoller/UserController.java" />
         <option value="$PROJECT_DIR$/src/com/chatroom/client/ChatClient.java" />
+        <option value="$PROJECT_DIR$/src/com/chatroom/client/contoller/UserController.java" />
         <option value="$PROJECT_DIR$/src/com/chatroom/client/view/JMainView.java" />
       </list>
     </option>
@@ -902,12 +906,12 @@
       <workItem from="1512044079948" duration="11391000" />
       <workItem from="1512143064992" duration="2756000" />
       <workItem from="1512192932682" duration="607000" />
-      <workItem from="1512193637207" duration="16880000" />
+      <workItem from="1512193637207" duration="18517000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="59400000" />
+    <option name="totallyTimeSpent" value="61037000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -920,6 +924,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="7" width="1936" height="1046" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -960,7 +965,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="38" />
+      <option name="time" value="39" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1346,16 +1351,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/chatroom/client/contoller/UserController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="114" column="36" lean-forward="false" selection-start-line="114" selection-start-column="36" selection-end-line="114" selection-end-column="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/chatroom/client/DoMainClient.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="286">
@@ -1371,14 +1366,6 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/chatroom/client/ChatClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="37" column="0" lean-forward="true" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1404,15 +1391,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/chatroom/client/contoller/UserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="535">
+          <caret line="125" column="31" lean-forward="true" selection-start-line="125" selection-start-column="31" selection-end-line="125" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/chatroom/client/ChatClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="37" column="0" lean-forward="true" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/chatroom/client/view/JMainView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="200" column="50" lean-forward="true" selection-start-line="200" selection-start-column="50" selection-end-line="200" selection-end-column="50" />
+        <state relative-caret-position="353">
+          <caret line="260" column="88" lean-forward="true" selection-start-line="260" selection-start-column="88" selection-end-line="260" selection-end-column="89" />
           <folding>
-            <element signature="e#2787#2788#0" expanded="true" />
-            <element signature="e#2819#2820#0" expanded="true" />
-            <element signature="e#5882#5883#0" expanded="true" />
-            <element signature="e#5950#5951#0" expanded="true" />
+            <element signature="e#2913#2914#0" expanded="true" />
+            <element signature="e#2945#2946#0" expanded="true" />
+            <element signature="class#4279:5090" expanded="false" />
+            <element signature="class#5135:5884" expanded="false" />
+            <element signature="class#5927:6691" expanded="false" />
+            <element signature="e#6012#6013#0" expanded="true" />
+            <element signature="e#6080#6081#0" expanded="true" />
+            <element signature="method#windowClosing#0;class#5927:6691" expanded="false" />
           </folding>
         </state>
       </provider>
