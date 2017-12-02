@@ -173,8 +173,8 @@ public class JMainView extends JFrame{
 
                 int position = groupListView.getSelectedIndex();
                 GroupBean groupBean = groups.get(position);
-//                    chatClient.jChatRoomView = new JChatRoomView(chatClient,userBean,friend);
-//                    chatClient.jChatRoomView.onShow();
+                chatClient.jChatRoomGroupView = new JChatRoomGroupView(chatClient,userBean,groupBean);
+                chatClient.jChatRoomGroupView.onShow();
             }
         }
 

@@ -29,11 +29,11 @@
       <file leaf-file-name="MessageRepositoty.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/chatroom/server/repository/MessageRepositoty.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="174">
-              <caret line="63" column="8" lean-forward="false" selection-start-line="63" selection-start-column="8" selection-end-line="69" selection-end-column="22" />
+            <state relative-caret-position="1310">
+              <caret line="63" column="23" lean-forward="true" selection-start-line="63" selection-start-column="23" selection-end-line="63" selection-end-column="23" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <marker date="1512194307624" expanded="true" signature="2410:2481" ph="insert into t_message... " />
+                <marker date="1512234881618" expanded="true" signature="2984:3063" ph="insert into t_message... " />
               </folding>
             </state>
           </provider>
@@ -49,11 +49,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ClientThread.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ClientThread.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/chatroom/server/core/ClientThread.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="757">
-              <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+            <state relative-caret-position="341">
+              <caret line="92" column="13" lean-forward="true" selection-start-line="92" selection-start-column="13" selection-end-line="92" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -69,11 +69,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UserController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/chatroom/server/controller/UserController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="497">
-              <caret line="93" column="1" lean-forward="true" selection-start-line="93" selection-start-column="1" selection-end-line="93" selection-end-column="1" />
+            <state relative-caret-position="315">
+              <caret line="86" column="33" lean-forward="true" selection-start-line="86" selection-start-column="33" selection-end-line="86" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -92,8 +92,8 @@
       <file leaf-file-name="MessageController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/chatroom/server/controller/MessageController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="205">
-              <caret line="34" column="35" lean-forward="false" selection-start-line="34" selection-start-column="35" selection-end-line="34" selection-end-column="35" />
+            <state relative-caret-position="270">
+              <caret line="80" column="70" lean-forward="false" selection-start-line="80" selection-start-column="55" selection-end-line="80" selection-end-column="70" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -124,6 +124,8 @@
     <findStrings>
       <find>GroupController</find>
       <find>write</find>
+      <find>t_message</find>
+      <find>getGroupMessage</find>
     </findStrings>
   </component>
   <component name="GradleLocalSettings">
@@ -135,14 +137,12 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/com/chatroom/server/protocol/ProtocolResult.java" />
-        <option value="$PROJECT_DIR$/src/com/chatroom/server/repository/MessageRepositoty.java" />
         <option value="$PROJECT_DIR$/src/com/chatroom/server/controller/AbstractController.java" />
         <option value="$PROJECT_DIR$/src/com/chatroom/server/ChatServer.java" />
         <option value="$PROJECT_DIR$/src/com/chatroom/server/ClientThread.java" />
         <option value="$PROJECT_DIR$/src/com/chatroom/server/core/ChatServer.java" />
         <option value="$PROJECT_DIR$/src/com/chatroom/server/model/BroadcastPacket.java" />
         <option value="$PROJECT_DIR$/src/com/chatroom/server/model/MessageBean.java" />
-        <option value="$PROJECT_DIR$/src/com/chatroom/server/controller/MessageController.java" />
         <option value="$PROJECT_DIR$/src/com/chatroom/server/model/GroupBean.java" />
         <option value="$PROJECT_DIR$/src/com/chatroom/server/protocol/Protocol.java" />
         <option value="$PROJECT_DIR$/src/com/chatroom/server/controller/GroupController.java" />
@@ -150,6 +150,8 @@
         <option value="$PROJECT_DIR$/src/com/chatroom/server/repository/UserRepository.java" />
         <option value="$PROJECT_DIR$/src/com/chatroom/server/core/ClientThread.java" />
         <option value="$PROJECT_DIR$/src/com/chatroom/server/controller/UserController.java" />
+        <option value="$PROJECT_DIR$/src/com/chatroom/server/repository/MessageRepositoty.java" />
+        <option value="$PROJECT_DIR$/src/com/chatroom/server/controller/MessageController.java" />
       </list>
     </option>
   </component>
@@ -778,12 +780,12 @@
       <workItem from="1511959124170" duration="4124000" />
       <workItem from="1512045474693" duration="6328000" />
       <workItem from="1512144254329" duration="890000" />
-      <workItem from="1512193632372" duration="17050000" />
+      <workItem from="1512193632372" duration="18624000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37508000" />
+    <option name="totallyTimeSpent" value="39082000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="7" width="1936" height="1046" extended-state="0" />
@@ -1220,16 +1222,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/chatroom/server/controller/MessageController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="34" column="35" lean-forward="false" selection-start-line="34" selection-start-column="35" selection-end-line="34" selection-end-column="35" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/chatroom/server/protocol/Protocol.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="416">
@@ -1244,17 +1236,6 @@
           <caret line="35" column="13" lean-forward="false" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/chatroom/server/repository/MessageRepositoty.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="63" column="8" lean-forward="false" selection-start-line="63" selection-start-column="8" selection-end-line="69" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1512194307624" expanded="true" signature="2410:2481" ph="insert into t_message... " />
           </folding>
         </state>
       </provider>
@@ -1292,14 +1273,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/chatroom/server/core/ClientThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="757">
-          <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/chatroom/server/protocol/ProtocolResult.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="185">
@@ -1329,8 +1302,37 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/chatroom/server/controller/UserController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="497">
-          <caret line="93" column="1" lean-forward="true" selection-start-line="93" selection-start-column="1" selection-end-line="93" selection-end-column="1" />
+        <state relative-caret-position="315">
+          <caret line="86" column="33" lean-forward="true" selection-start-line="86" selection-start-column="33" selection-end-line="86" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/chatroom/server/repository/MessageRepositoty.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1310">
+          <caret line="63" column="23" lean-forward="true" selection-start-line="63" selection-start-column="23" selection-end-line="63" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1512234881618" expanded="true" signature="2984:3063" ph="insert into t_message... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/chatroom/server/controller/MessageController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="80" column="70" lean-forward="false" selection-start-line="80" selection-start-column="55" selection-end-line="80" selection-end-column="70" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/chatroom/server/core/ClientThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="341">
+          <caret line="92" column="13" lean-forward="true" selection-start-line="92" selection-start-column="13" selection-end-line="92" selection-end-column="13" />
           <folding />
         </state>
       </provider>

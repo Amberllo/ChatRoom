@@ -27,9 +27,12 @@ public class MessageController extends AbstractController{
                 return sendMessage(params);
             case "getMessage":
                 return getMessage(params);
+            case "getGroupMessage":
+                return getGroupMessage(params);
         }
         return null;
     }
+
 
     private ProtocolResult sendMessage(Map<String, String> param) {
         ProtocolResult result = new ProtocolResult();
@@ -66,6 +69,16 @@ public class MessageController extends AbstractController{
         String userid = params.get("userid");
         String friendid = params.get("friendid");
         List<MessageBean> messages = messageRepositoty.getMessage(userid,friendid);
+        result.resultParams = messages;
+        return result;
+    }
+
+    private ProtocolResult getGroupMessage(Map<String, String> params) {
+        ProtocolResult result = new ProtocolResult();
+        result.resource = "message";
+        result.actin = "getGroupMessage";
+        String groupid = params.get("groupid");
+        List<MessageBean> messages = messageRepositoty.getGroupMessage(groupid);
         result.resultParams = messages;
         return result;
     }

@@ -21,13 +21,26 @@ public class MessageRepositoty extends AbstractRepository{
     }
 
     public List<MessageBean> getMessage(String userid, String friendid) {
-        List<MessageBean> messages = new ArrayList<>();
-        String sql = "SELECT t_message.*, t_user.nickname AS sendername FROM t_message " +
-                " LEFT JOIN t_user ON t_message.sender = t_user.userid " +
+
+        String sql = "SELECT "+TABLE_MESSAGE+".*, t_user.nickname AS sendername FROM "+TABLE_MESSAGE+" \n" +
+                " LEFT JOIN t_user ON "+TABLE_MESSAGE+".sender = t_user.userid " +
                 " WHERE ( sender = '"+userid+"' AND receiver = '"+friendid+"' )" +
                 " OR ( receiver = '"+userid+"' AND sender = '"+friendid+"' )" +
                 " ORDER BY sendtime ASC";
+        return getMessageBySql(sql);
 
+    }
+
+    public List<MessageBean> getGroupMessage(String groupid) {
+        String sql = "select "+TABLE_MESSAGE+".*,t_user.nickname as sendername from "+TABLE_MESSAGE+" \n" +
+                "LEFT JOIN t_group ON "+TABLE_MESSAGE+".receiver = t_group.groupid\n" +
+                "LEFT JOIN t_user ON "+TABLE_MESSAGE+".sender = t_user.userid\n" +
+                "where t_group.groupid = '"+groupid+"'";
+        return getMessageBySql(sql);
+    }
+
+    private List<MessageBean> getMessageBySql(String sql) {
+        List<MessageBean> messages = new ArrayList<>();
         PreparedStatement statement = dbHelper.execSql(sql);
         if(statement!=null){
             try {
@@ -60,7 +73,7 @@ public class MessageRepositoty extends AbstractRepository{
     }
 
     public void sendMessage(MessageBean messageBean) throws SQLException{
-        String sql = "insert into t_message (sender,sendtime,receiver,content) VALUE(?,?,?,?)";
+        String sql = "insert into "+TABLE_MESSAGE+" (sender,sendtime,receiver,content) VALUE(?,?,?,?)";
         PreparedStatement pstmt = (PreparedStatement) dbHelper.conn.prepareStatement(sql);
         pstmt.setString(1, messageBean.getSender());
         pstmt.setString(2, messageBean.getSendtime());
@@ -70,4 +83,6 @@ public class MessageRepositoty extends AbstractRepository{
         pstmt.close();
 
     }
+
+
 }

@@ -2,6 +2,7 @@ package com.chatroom.client.view;
 
 import com.chatroom.client.ChatClient;
 import com.chatroom.client.DateUtils;
+import com.chatroom.client.model.GroupBean;
 import com.chatroom.client.model.MessageBean;
 import com.chatroom.client.model.UserBean;
 
@@ -9,25 +10,25 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by Administrator on 2017/11/30 0030.
  */
-public class JChatRoomView extends JFrame {
+public class JChatRoomGroupView extends JFrame {
     private ChatClient chatClient;
     private UserBean userBean;
-    private UserBean friend;
+    private GroupBean groupBean;
 
     private JButton btn_submit;
     private JPanel panel_message;
     private JTextField edt_content;
     private GridBagLayout layout_gridbag;
-    JChatRoomView(ChatClient chatClient, UserBean userBean, UserBean friend){
+    JChatRoomGroupView(ChatClient chatClient, UserBean userBean, GroupBean groupBean){
         this.chatClient = chatClient;
         this.userBean = userBean;
-        this.friend = friend;
+        this.groupBean = groupBean;
         init();
     }
 
@@ -46,7 +47,7 @@ public class JChatRoomView extends JFrame {
             }
         });
 
-//        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+//        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //获取屏幕大小
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int width = screenSize.width/3;
@@ -54,7 +55,7 @@ public class JChatRoomView extends JFrame {
         this.setSize(width,height);
         //让窗口居中显示
         this.setLocation(screenSize.width/2-width/2,screenSize.height/2-height/2);
-        this.setTitle(friend.getNickname());
+        this.setTitle(groupBean.getGroupname());
         this.setLayout(layout_gridbag);
 
         this.add(panel_message);
@@ -93,7 +94,7 @@ public class JChatRoomView extends JFrame {
             messageBean.setContent(text);
             messageBean.setMsgid(UUID.randomUUID().toString());
             messageBean.setSender(userBean.getUserid());
-            messageBean.setReceiver(friend.getUserid());
+            messageBean.setReceiver(groupBean.getGroupid());
             messageBean.setSendername(userBean.getNickname());
             messageBean.setSendtime(DateUtils.getTime());
 
@@ -111,7 +112,19 @@ public class JChatRoomView extends JFrame {
     }
 
     public void getMessage(){
-        chatClient.message.getMessage(userBean,friend);
+        chatClient.message.getGroupMessage(groupBean);
+    }
+
+    public void setMessage(MessageBean message) {
+
+        String userid = userBean.getUserid();
+        String groupid = groupBean.getGroupid();
+
+        if(groupid.equals(message.getReceiver())){
+            JLabel text = new JLabel(message.getSendtime()+ " "+message.getSendername()+" \n "+message.getContent()+" \n ");
+            panel_message.add(text);
+            panel_message.revalidate();
+        }
     }
 
     public void setMessages(List<MessageBean> messages) {
@@ -129,27 +142,25 @@ public class JChatRoomView extends JFrame {
         userBean.setUserid(UUID.randomUUID().toString());
         userBean.setPassword("123");
 
-        UserBean friend = new UserBean();
-        friend.setNickname("李四");
-        friend.setUsername("lisi");
-        friend.setUserid(UUID.randomUUID().toString());
-        friend.setPassword("123");
-        JChatRoomView chatRoomView = new JChatRoomView(null,userBean,friend);
+        GroupBean groupBean = new GroupBean();
+        groupBean.setGroupname("工程1部");
+        groupBean.setGroupid(UUID.randomUUID().toString());
+        JChatRoomGroupView chatRoomView = new JChatRoomGroupView(null,userBean,groupBean);
         chatRoomView.setVisible(true);
     }
 
-    public void setMessage(MessageBean message) {
-
-        String userid = userBean.getUserid();
-        String friendid = friend.getUserid();
-
-        boolean sendByMe = message.getSender().equals(userid) && message.getReceiver().equals(friendid);
-        boolean sendByFriend = message.getSender().equals(friendid) && message.getReceiver().equals(userid);
-        if(sendByMe || sendByFriend){
-            JLabel text = new JLabel(message.getSendtime()+ " "+message.getSendername()+" \n "+message.getContent()+" \n ");
-            panel_message.add(text);
-            panel_message.revalidate();
-        }
-
-    }
+//    public void setMessage(MessageBean message) {
+//
+//        String userid = userBean.getUserid();
+//        String friendid = friend.getUserid();
+//
+//        boolean sendByMe = message.getSender().equals(userid) && message.getReceiver().equals(friendid);
+//        boolean sendByFriend = message.getSender().equals(friendid) && message.getReceiver().equals(userid);
+//        if(sendByMe || sendByFriend){
+//            JLabel text = new JLabel(message.getSendtime()+ " "+message.getSendername()+" \n "+message.getContent()+" \n ");
+//            panel_message.add(text);
+//            panel_message.revalidate();
+//        }
+//
+//    }
 }

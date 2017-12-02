@@ -1,6 +1,7 @@
 package com.chatroom.client.contoller;
 
 import com.chatroom.client.ChatClient;
+import com.chatroom.client.model.GroupBean;
 import com.chatroom.client.model.MessageBean;
 import com.chatroom.client.model.UserBean;
 import com.chatroom.client.protocol.Protocol;
@@ -26,7 +27,6 @@ public class MessageController extends AbstractController{
     @Override
     public void handleResponse(ProtocolResult result) {
 
-
         switch (result.actin){
             case "sendMessage":
                 onSendMessage(result);
@@ -34,9 +34,17 @@ public class MessageController extends AbstractController{
             case "getMessage":
                 onGetMessage(result);
                 break;
+            case "getGroupMessage":
+                onGetGroupMessage(result);
+                break;
         }
 
+    }
 
+    private void onGetGroupMessage(ProtocolResult result) {
+        Type type = new TypeToken<List<MessageBean>>() {}.getType();
+        List<MessageBean> messages = new Gson().fromJson(result.resultParams,type);
+        client.jChatRoomGroupView.setMessages(messages);
     }
 
     @Override
@@ -57,7 +65,13 @@ public class MessageController extends AbstractController{
 
     private void onBroadcastSetMessage(ProtocolResult result){
         MessageBean message = new Gson().fromJson(result.resultParams, MessageBean.class);
-        client.jChatRoomView.setMessage(message);
+        if(client.jChatRoomView!=null){
+            client.jChatRoomView.setMessage(message);
+        }
+        if(client.jChatRoomGroupView!=null){
+            client.jChatRoomGroupView.setMessage(message);
+        }
+
     }
 
     private void onSendMessage(ProtocolResult result) {
@@ -80,5 +94,12 @@ public class MessageController extends AbstractController{
         param.put("userid",me.getUserid());
         param.put("friendid",friend.getUserid());
         client.doPost("message","getMessage",param);
+    }
+
+    public void getGroupMessage(GroupBean groupBean) {
+        Map<String,String> param = new HashMap<>();
+        param.put("groupid",groupBean.getGroupid());
+        client.doPost("message","getGroupMessage",param);
+
     }
 }

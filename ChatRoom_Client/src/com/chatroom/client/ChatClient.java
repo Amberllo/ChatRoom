@@ -6,6 +6,7 @@ import com.chatroom.client.contoller.MessageController;
 import com.chatroom.client.contoller.UserController;
 import com.chatroom.client.protocol.Protocol;
 import com.chatroom.client.protocol.ProtocolResult;
+import com.chatroom.client.view.JChatRoomGroupView;
 import com.chatroom.client.view.JChatRoomView;
 import com.chatroom.client.view.JLoginView;
 import com.chatroom.client.view.JMainView;
@@ -35,6 +36,7 @@ public class ChatClient {
     public JLoginView jLoginView;
     public JMainView jMainView;
     public JChatRoomView jChatRoomView;
+    public JChatRoomGroupView jChatRoomGroupView;
 
     public Map<String,AbstractController> controllers = new HashMap<>();
 
