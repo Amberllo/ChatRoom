@@ -25,26 +25,29 @@ public class UserController extends AbstractController{
         switch (action){
             case "auth":
                 return auth(params);
+            case "offline":
+                return offline(params);
+            case "online":
+                return online(params);
             case "friends":
                 return friends(params);
         }
         return null;
     }
 
+
+
     private ProtocolResult friends(Map<String, String> params) {
         ProtocolResult result = new ProtocolResult();
         result.resource = "User";
         result.actin = "friends";
         String userid = params.get("userid");
-//        for(UserBean friend:friends){
-//            System.out.println("好友："+friend.getNickname()+" 状态: "+friend.getState().text);
-//        }
         result.resultParams = userRepository.getFriends(userid);
         return result;
     }
 
 
-    public ProtocolResult auth(Map<String, String> params){
+    private ProtocolResult auth(Map<String, String> params){
 
         String username = params.get("username");
         String password = params.get("password");
@@ -62,13 +65,30 @@ public class UserController extends AbstractController{
                 result.resultCode = Code_Error;
             }else{
                 result.resultParams = userBean;
-
-
             }
         }
-
-
         return result;
     }
 
+    private ProtocolResult online(Map<String, String> params) {
+        ProtocolResult result = new ProtocolResult();
+        result.resource = "User";
+        result.actin = "online";
+        result.resultParams = params;
+        String userid = params.get("userid");
+        userRepository.userState(userid,true);
+//        server.sendBroadcast("User","online",result.resultParams);
+        return result;
+    }
+
+    private ProtocolResult offline(Map<String, String> params) {
+        ProtocolResult result = new ProtocolResult();
+        result.resource = "User";
+        result.actin = "offline";
+        result.resultParams = params;
+        String userid = params.get("userid");
+        userRepository.userState(userid,false);
+//        server.sendBroadcast("User","offline",result.resultParams);
+        return result;
+    }
 }

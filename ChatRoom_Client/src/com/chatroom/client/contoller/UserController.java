@@ -35,13 +35,24 @@ public class UserController extends AbstractController{
             case "friends":
                 onFriends(result);
                 break;
+            case "offline":
+                break;
         }
     }
 
     @Override
     public void onBroadcast(ProtocolResult result) {
-
+        switch (result.actin){
+            case "offline":
+                onOffline(result);
+                break;
+            case "online":
+                onOnline(result);
+                break;
+        }
     }
+
+
 
     private void onAuth(ProtocolResult result) {
         if(result.resultCode == Code_Success){
@@ -91,4 +102,28 @@ public class UserController extends AbstractController{
         params.put("userid",userid);
         client.doPost("User","friends",params);
     }
+
+    public void offline(String userid){
+        Map<String,String> params = new HashMap<>();
+        params.put("userid",userid);
+        client.doPost("User","offline",params);
+    }
+
+    public void online(String userid) {
+        Map<String,String> params = new HashMap<>();
+        params.put("userid",userid);
+        client.doPost("User","online",params);
+    }
+
+    private void onOnline(ProtocolResult result) {
+//        String userid = (String)result.resultParams;
+        System.out.println(result.resultParams);
+    }
+
+    private void onOffline(ProtocolResult result) {
+//        String userid = (String)result.resultParams;
+        System.out.println(result.resultParams);
+    }
+
+
 }

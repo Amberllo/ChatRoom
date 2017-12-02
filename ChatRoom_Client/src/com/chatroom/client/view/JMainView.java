@@ -8,10 +8,7 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.awt.event.FocusListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 import java.util.*;
 import java.util.List;
 
@@ -31,18 +28,18 @@ public class JMainView extends JFrame{
     private boolean groupHasInit = false;
     public JMainView(ChatClient chatClient) {
         this.chatClient = chatClient;
-        friendPane = new JScrollPane();
-        groupPane = new JScrollPane();
-        tv_username = new JLabel();
+        this.friendPane = new JScrollPane();
+        this.groupPane = new JScrollPane();
+        this.tv_username = new JLabel();
 
         LinkedHashMap<String,JScrollPane> map = new LinkedHashMap<>();
         map.put("好友",friendPane);
         map.put("群组",groupPane);
-        mainJPanel = new JTabbedPanel(map);
+        this.mainJPanel = new JTabbedPanel(map);
 
 
 
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         //获取屏幕大小
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -61,7 +58,7 @@ public class JMainView extends JFrame{
         container.add(tv_username);
         container.add(mainJPanel);
 
-        mainJPanel.setOnTabSelectListener(new JTabbedPanel.OnTabSelectListener() {
+        this.mainJPanel.setOnTabSelectListener(new JTabbedPanel.OnTabSelectListener() {
             @Override
             public void onSelect(int index) {
                 switch (index){
@@ -81,6 +78,8 @@ public class JMainView extends JFrame{
         });
 
         this.setContentPane(container);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.addWindowListener(windowListener);
     }
 
     public void setUserBean(UserBean userBean){
@@ -91,12 +90,6 @@ public class JMainView extends JFrame{
     public void onShow(){
         setVisible(true);
     }
-
-
-    public void onHide(){
-        setVisible(false);
-    }
-
 
     public void setFriends(List<UserBean> friends) {
         this.friendHasInit = true;
@@ -191,16 +184,47 @@ public class JMainView extends JFrame{
         groupPane.setViewportView(list);
     }
 
-    public static void  main(String[] args){
-
-        UserBean userBean = new UserBean();
-        JMainView mainView = new JMainView(null);
-        mainView.onShow();
-    }
-
     public void initView() {
         if(!friendHasInit){
             chatClient.user.friends(userBean.getUserid());
         }
     }
+
+
+    WindowListener windowListener = new WindowListener() {
+        @Override
+        public void windowOpened(WindowEvent e) {
+            chatClient.user.online(userBean.getUserid());
+        }
+
+        @Override
+        public void windowClosing(WindowEvent e) {
+            chatClient.user.offline(userBean.getUserid());
+            dispose();
+            System.exit(0);
+        }
+
+        @Override
+        public void windowClosed(WindowEvent e) {
+
+        }
+
+        @Override
+        public void windowIconified(WindowEvent e) {
+        }
+
+        @Override
+        public void windowDeiconified(WindowEvent e) {
+
+        }
+
+        @Override
+        public void windowActivated(WindowEvent e) {
+
+        }
+
+        @Override
+        public void windowDeactivated(WindowEvent e) {
+        }
+    };
 }

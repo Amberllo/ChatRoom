@@ -8,12 +8,10 @@ import com.sun.jmx.remote.internal.ArrayQueue;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.ArrayDeque;
-import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.LinkedBlockingQueue;
 
 public class ClientThread extends Thread {
+    private static final String DIVIDE = "<end>";
     public Socket socket;
     public Protocol protocol;
 
@@ -37,13 +35,18 @@ public class ClientThread extends Thread {
                 InputStream is = socket.getInputStream();
                 if (is.available() > 0) {
 
-                    String json = readStream(socket.getInputStream());
-                    System.out.println("request data :"+json);
-                    ProtocolResult result = protocol.doPost(json);
-                    if(result!=null){
-                        write(socket.getOutputStream(),result.toJson());
-                    }else{
-                        write(socket.getOutputStream(),ProtocolResult.unknowResult());
+                    String streamString = readStream(socket.getInputStream());
+                    String[] jsonArray = streamString.split(DIVIDE);
+                    for(String json:jsonArray){
+                        if(!json.equals("")){
+                            System.out.println("request data :"+json);
+                            ProtocolResult result = protocol.doPost(json);
+                            if(result!=null){
+                                write(socket.getOutputStream(),result.toJson());
+                            }else{
+                                write(socket.getOutputStream(),ProtocolResult.unknowResult());
+                            }
+                        }
                     }
                 }
                 sleep(500);
@@ -77,11 +80,15 @@ public class ClientThread extends Thread {
         public void write(OutputStream outputStream,String json) {
 
             try {
+                json = json + DIVIDE;
                 OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
                 BufferedWriter writer = new BufferedWriter(outputStreamWriter);
                 writer.write(json);
                 writer.flush();
+                sleep(200);
             } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }

@@ -86,4 +86,20 @@ public class UserRepository extends AbstractRepository{
         return userBean;
     }
 
+    public void userState(String userid,boolean online) {
+        String sql = "update "+TABLE_USER_STATE+" SET state=? where userid = ?";
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = (PreparedStatement) dbHelper.conn.prepareStatement(sql);
+            pstmt.setInt(1, online?1:0);
+            pstmt.setString(2, userid);
+            pstmt.executeUpdate();
+            pstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
 }

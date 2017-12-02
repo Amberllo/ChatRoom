@@ -26,6 +26,7 @@ import static java.lang.Thread.sleep;
  * Created by Administrator on 2017/11/18 0018.
  */
 public class ChatClient {
+    private static final String DIVIDED = "<end>";
     private Socket socket;
     public UserController user;
     public GroupController group;
@@ -59,9 +60,15 @@ public class ChatClient {
                         InputStream is = socket.getInputStream();
                         if (is.available() > 0) {
 
-                            String json = readStream(socket.getInputStream());
-                            handleResponse(json);
-                            System.out.println("response data :"+json);
+                            String streamString = readStream(socket.getInputStream());
+                            String[] jsonArray = streamString.split(DIVIDED);
+                            for(String json:jsonArray){
+                                if(!"".equals(json)){
+                                    handleResponse(json);
+                                    System.out.println("response data :"+json);
+                                }
+                            }
+
                         }
                         sleep(1000);
                     }
@@ -80,11 +87,15 @@ public class ChatClient {
     private void write(String json) {
 
         try {
+            json = json + DIVIDED;
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(socket.getOutputStream());
             BufferedWriter writer = new BufferedWriter(outputStreamWriter);
             writer.write(json);
             writer.flush();
+            sleep(200);
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
@@ -115,6 +126,7 @@ public class ChatClient {
 
     public void handleResponse(String json){
         try{
+
             Gson gson = new Gson();
             ProtocolResult result = gson.fromJson(json,ProtocolResult.class);
 
@@ -140,5 +152,18 @@ public class ChatClient {
     public void doPost(String resource, String action, Map<String, String> params) {
         write(Protocol.doPost(resource,action,params));
     }
+
+
+
+//    public static final void main(String[] args){
+//        String json = "{\"resultCode\":1,\"resource\":\"User\",\"actin\":\"offline\",\"resultParams\":{\"userid\":\"abb6ba94-2b65-4f38-8c96-2c82a6d0514e\"}}";
+//        String json2 = "{\"resultCode\":1,\"resource\":\"User\",\"actin\":\"offline\",\"resultParams\":{\"userid\":\"abb6ba94-2b65-4f38-8c96-2c82a6d0514e\"}}";
+//        String str  = json + DIVIDED + json2 + DIVIDED;
+//
+//        String[] array = str.split(DIVIDED);
+//        for(String s:array){
+//            System.out.println(s);
+//        }
+//    }
 
 }
