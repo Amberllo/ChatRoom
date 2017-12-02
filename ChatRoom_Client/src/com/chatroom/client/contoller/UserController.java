@@ -4,14 +4,12 @@ import com.chatroom.client.ChatClient;
 import com.chatroom.client.model.UserBean;
 import com.chatroom.client.protocol.ProtocolResult;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

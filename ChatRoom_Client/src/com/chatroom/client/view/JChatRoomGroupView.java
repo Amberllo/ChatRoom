@@ -23,6 +23,7 @@ public class JChatRoomGroupView extends JFrame {
 
     private JButton btn_submit;
     private JPanel panel_message;
+    private JPanel panel_member;
     private JTextField edt_content;
     private GridBagLayout layout_gridbag;
     JChatRoomGroupView(ChatClient chatClient, UserBean userBean, GroupBean groupBean){
@@ -36,10 +37,11 @@ public class JChatRoomGroupView extends JFrame {
 
         btn_submit = new JButton("send");
         edt_content = new JTextField();
+        panel_member = new JPanel();
         panel_message = new JPanel();
         layout_gridbag = new GridBagLayout();
         panel_message.setLayout(new BoxLayout(panel_message,BoxLayout.Y_AXIS));
-
+        panel_member.setBackground(Color.cyan);
         btn_submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -59,6 +61,7 @@ public class JChatRoomGroupView extends JFrame {
         this.setLayout(layout_gridbag);
 
         this.add(panel_message);
+//        this.add(panel_member);
         this.add(edt_content);
         this.add(btn_submit);
 
@@ -71,14 +74,22 @@ public class JChatRoomGroupView extends JFrame {
         //VERTICAL：加高组件，使它在垂直方向上填满其显示区域，但是不改变宽度。
         //BOTH：使组件完全填满其显示区域。
         constraints.gridwidth=0;//该方法是设置组件水平所占用的格子数，如果为0，就说明该组件是该行的最后一个
+        constraints.gridheight = 1;
         constraints.weightx = 1;//该方法设置组件水平的拉伸幅度，如果为0就说明不拉伸，不为0就随着窗口增大进行拉伸，0到1之间
         constraints.weighty=1;//该方法设置组件垂直的拉伸幅度，如果为0就说明不拉伸，不为0就随着窗口增大进行拉伸，0到1之间
         layout_gridbag.setConstraints(panel_message, constraints);//设置组件
+
+//        constraints.gridwidth=1;
+//        constraints.gridheight = 1;
+//        constraints.weightx = 1;
+//        constraints.weighty=1;
+//        layout_gridbag.setConstraints(panel_member, constraints);
 
         constraints.gridwidth=1;
         constraints.weightx = 1;
         constraints.weighty=0;
         layout_gridbag.setConstraints(edt_content, constraints);
+
         constraints.gridwidth=1;
         constraints.weightx = 0;
         constraints.weighty=0;

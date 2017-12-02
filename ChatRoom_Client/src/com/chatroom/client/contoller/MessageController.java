@@ -4,11 +4,9 @@ import com.chatroom.client.ChatClient;
 import com.chatroom.client.model.GroupBean;
 import com.chatroom.client.model.MessageBean;
 import com.chatroom.client.model.UserBean;
-import com.chatroom.client.protocol.Protocol;
 import com.chatroom.client.protocol.ProtocolResult;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import sun.plugin2.message.Message;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;

@@ -3,8 +3,6 @@ package com.chatroom.client.protocol;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
-import java.util.Map;
-
 /**
  * Created by Administrator on 2017/11/24 0024.
  */

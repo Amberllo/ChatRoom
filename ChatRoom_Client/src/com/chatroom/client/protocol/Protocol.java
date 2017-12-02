@@ -1,11 +1,7 @@
 package com.chatroom.client.protocol;
 
-import com.chatroom.client.ChatClient;
-import com.chatroom.client.contoller.AbstractController;
-import com.chatroom.client.contoller.UserController;
 import com.google.gson.Gson;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
