@@ -3,9 +3,11 @@ package com.chatroom.client.contoller;
 import com.chatroom.client.ChatClient;
 import com.chatroom.client.model.MessageBean;
 import com.chatroom.client.model.UserBean;
+import com.chatroom.client.protocol.Protocol;
 import com.chatroom.client.protocol.ProtocolResult;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import sun.plugin2.message.Message;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -23,12 +25,25 @@ public class MessageController extends AbstractController{
 
     @Override
     public void handleResponse(ProtocolResult result) {
+
+
         switch (result.actin){
             case "sendMessage":
                 onSendMessage(result);
                 break;
             case "getMessage":
                 onGetMessage(result);
+                break;
+        }
+
+
+    }
+
+    @Override
+    public void onBroadcast(ProtocolResult result) {
+        switch (result.actin){
+            case "sendMessage":
+                onBroadcastSetMessage(result);
                 break;
         }
     }
@@ -40,15 +55,19 @@ public class MessageController extends AbstractController{
 
     }
 
-    private void onSendMessage(ProtocolResult result) {
-        System.out.println("onSendMessage");
+    private void onBroadcastSetMessage(ProtocolResult result){
+        MessageBean message = new Gson().fromJson(result.resultParams, MessageBean.class);
+        client.jChatRoomView.setMessage(message);
+    }
 
+    private void onSendMessage(ProtocolResult result) {
     }
 
 
     public void sendMessage(MessageBean messageBean){
         Map<String,String> param = new HashMap<>();
         param.put("sender",messageBean.getSender());
+        param.put("sendername",messageBean.getSendername());
         param.put("sendtime",messageBean.getSendtime());
         param.put("content",messageBean.getContent());
         param.put("receiver",messageBean.getReceiver());

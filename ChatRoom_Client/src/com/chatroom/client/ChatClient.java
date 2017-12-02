@@ -114,10 +114,21 @@ public class ChatClient {
         try{
             Gson gson = new Gson();
             ProtocolResult result = gson.fromJson(json,ProtocolResult.class);
-            AbstractController controller = getController(result.resource);
-            if(controller!=null){
-                controller.handleResponse(result);
+
+            if(result.resource.startsWith("Broadcast_")){
+                String resource = result.resource.substring("Broadcast_".length());
+                AbstractController controller = getController(resource);
+                if(controller!=null){
+                    controller.onBroadcast(result);
+                }
+            }else{
+                AbstractController controller = getController(result.resource);
+                if(controller!=null){
+                    controller.handleResponse(result);
+                }
             }
+
+
         }catch (Exception e){
             e.printStackTrace();
         }

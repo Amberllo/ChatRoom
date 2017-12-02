@@ -14,4 +14,6 @@ public abstract class AbstractController {
         this.client = client;
     }
     public abstract void handleResponse(ProtocolResult result);
+
+    public abstract void onBroadcast(ProtocolResult result);
 }

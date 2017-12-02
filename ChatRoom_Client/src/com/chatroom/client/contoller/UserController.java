@@ -38,6 +38,11 @@ public class UserController extends AbstractController{
         }
     }
 
+    @Override
+    public void onBroadcast(ProtocolResult result) {
+
+    }
+
     private void onAuth(ProtocolResult result) {
         if(result.resultCode == Code_Success){
             UserBean userBean = new Gson().fromJson(result.resultParams,UserBean.class);

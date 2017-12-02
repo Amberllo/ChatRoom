@@ -1,5 +1,6 @@
 package com.chatroom.server.protocol;
 
+import com.chatroom.server.core.ChatServer;
 import com.chatroom.server.DBHelper;
 import com.chatroom.server.controller.AbstractController;
 import com.chatroom.server.controller.MessageController;
@@ -19,10 +20,10 @@ public class Protocol {
     Map<String,String> params;
     Map<String,AbstractController> api = new HashMap<>();
     DBHelper dbHelper;
-    public Protocol(){
+    public Protocol(ChatServer server){
         dbHelper = new DBHelper();
-        api.put("user",new UserController(dbHelper));
-        api.put("message",new MessageController(dbHelper));
+        api.put("user",new UserController(server,dbHelper));
+        api.put("message",new MessageController(server,dbHelper));
     }
 
     public ProtocolResult doPost(String json){

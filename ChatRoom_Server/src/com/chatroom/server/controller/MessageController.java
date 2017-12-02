@@ -1,10 +1,12 @@
 package com.chatroom.server.controller;
 
+import com.chatroom.server.core.ChatServer;
 import com.chatroom.server.DBHelper;
 import com.chatroom.server.model.MessageBean;
 import com.chatroom.server.protocol.ProtocolResult;
 import com.chatroom.server.repository.MessageRepositoty;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -13,8 +15,8 @@ import java.util.Map;
  */
 public class MessageController extends AbstractController{
     MessageRepositoty messageRepositoty;
-    public MessageController(DBHelper dbHelper) {
-        super();
+    public MessageController(ChatServer server,DBHelper dbHelper) {
+        super(server,dbHelper);
         messageRepositoty = new MessageRepositoty(dbHelper);
     }
 
@@ -29,13 +31,29 @@ public class MessageController extends AbstractController{
         return null;
     }
 
-    private ProtocolResult sendMessage(Map<String, String> params) {
+    private ProtocolResult sendMessage(Map<String, String> param) {
         ProtocolResult result = new ProtocolResult();
         result.resource = "message";
         result.actin = "sendMessage";
 
-//        String userid = params.get("userid");
-//        String friendid = params.get("friendid");
+        MessageBean messageBean = new MessageBean();
+        messageBean.setSender(param.get("sender"));
+        messageBean.setSendername(param.get("sendername"));
+        messageBean.setSendtime(param.get("sendtime"));
+        messageBean.setContent(param.get("content"));
+        messageBean.setReceiver(param.get("receiver"));
+        messageBean.setMsgid(param.get("msgid"));
+
+        try {
+            messageRepositoty.sendMessage(messageBean);
+            result.resultParams = "";
+            result.resultParams = messageBean;
+            server.sendBroadcast(result.resource,result.actin,messageBean);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            result.resultCode = ProtocolResult.Code_Error;
+            result.resultParams = "消息发送失败";
+        }
 
         return result;
     }

@@ -58,4 +58,16 @@ public class MessageRepositoty extends AbstractRepository{
         }
         return messages;
     }
+
+    public void sendMessage(MessageBean messageBean) throws SQLException{
+        String sql = "insert into t_message (sender,sendtime,receiver,content) VALUE(?,?,?,?)";
+        PreparedStatement pstmt = (PreparedStatement) dbHelper.conn.prepareStatement(sql);
+        pstmt.setString(1, messageBean.getSender());
+        pstmt.setString(2, messageBean.getSendtime());
+        pstmt.setString(3, messageBean.getReceiver());
+        pstmt.setString(4, messageBean.getContent());
+        pstmt.executeUpdate();
+        pstmt.close();
+
+    }
 }

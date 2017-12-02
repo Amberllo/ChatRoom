@@ -1,12 +1,11 @@
 package com.chatroom.server.controller;
 
+import com.chatroom.server.core.ChatServer;
 import com.chatroom.server.DBHelper;
 import com.chatroom.server.model.UserBean;
 import com.chatroom.server.protocol.ProtocolResult;
 import com.chatroom.server.repository.UserRepository;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static com.chatroom.server.protocol.ProtocolResult.Code_Error;
@@ -16,7 +15,8 @@ import static com.chatroom.server.protocol.ProtocolResult.Code_Error;
  */
 public class UserController extends AbstractController{
     private UserRepository userRepository;
-    public UserController(DBHelper dbHelper){
+    public UserController(ChatServer server, DBHelper dbHelper){
+        super(server,dbHelper);
         userRepository = new UserRepository(dbHelper);
     }
 

@@ -94,6 +94,7 @@ public class JChatRoomView extends JFrame {
             messageBean.setMsgid(UUID.randomUUID().toString());
             messageBean.setSender(userBean.getUserid());
             messageBean.setReceiver(friend.getUserid());
+            messageBean.setSendername(userBean.getNickname());
             messageBean.setSendtime(DateUtils.getTime());
 
             chatClient.message.sendMessage(messageBean);
@@ -135,5 +136,20 @@ public class JChatRoomView extends JFrame {
         friend.setPassword("123");
         JChatRoomView chatRoomView = new JChatRoomView(null,userBean,friend);
         chatRoomView.setVisible(true);
+    }
+
+    public void setMessage(MessageBean message) {
+
+        String userid = userBean.getUserid();
+        String friendid = friend.getUserid();
+
+        boolean sendByMe = message.getSender().equals(userid) && message.getReceiver().equals(friendid);
+        boolean sendByFriend = message.getSender().equals(friendid) && message.getReceiver().equals(userid);
+        if(sendByMe || sendByFriend){
+            JLabel text = new JLabel(message.getSendtime()+ " "+message.getSendername()+" \n "+message.getContent()+" \n ");
+            panel_message.add(text);
+            panel_message.revalidate();
+        }
+
     }
 }
