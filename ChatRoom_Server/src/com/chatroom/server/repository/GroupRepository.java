@@ -20,7 +20,7 @@ public class GroupRepository extends AbstractRepository{
         super(dbHelper);
     }
 
-    public List<GroupBean> userGroup(String userid){
+    public List<GroupBean> userGroups(String userid){
         String sql = "select g.* from "+TABLE_GROUP+" as g\n" +
                 "LEFT JOIN "+TABLE_GROUP_REF_USER+" as ref\n" +
                 "on g.groupid = ref.groupid\n" +

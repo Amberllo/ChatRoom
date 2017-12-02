@@ -4,6 +4,7 @@ import com.chatroom.client.ChatClient;
 import com.chatroom.client.DateUtils;
 import com.chatroom.client.model.MessageBean;
 import com.chatroom.client.model.UserBean;
+import oracle.jrockit.jfr.JFR;
 
 import javax.swing.*;
 import java.awt.*;
@@ -52,6 +53,7 @@ public class JChatRoomView extends JFrame {
         int width = screenSize.width/3;
         int height = screenSize.height/2;
         this.setSize(width,height);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         //让窗口居中显示
         this.setLocation(screenSize.width/2-width/2,screenSize.height/2-height/2);
         this.setTitle(friend.getNickname());

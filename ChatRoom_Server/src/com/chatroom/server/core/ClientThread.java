@@ -33,9 +33,6 @@ public class ClientThread extends Thread {
                     BroadcastPacket packet = queue.poll();
                     write(socket.getOutputStream(),packet.toJson());
                 }
-                while(!queue.isEmpty()){
-
-                }
 
                 InputStream is = socket.getInputStream();
                 if (is.available() > 0) {

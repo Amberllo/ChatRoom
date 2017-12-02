@@ -22,18 +22,18 @@ public class GroupController extends AbstractController{
     @Override
     public ProtocolResult handleRequest(String action, Map<String, String> params) {
         switch (action){
-            case "userGroup":
-                return userGroup(params);
+            case "userGroups":
+                return userGroups(params);
         }
         return null;
     }
 
-    private ProtocolResult userGroup(Map<String, String> params) {
+    private ProtocolResult userGroups(Map<String, String> params) {
         ProtocolResult result = new ProtocolResult();
         result.resource = "group";
-        result.actin = "userGroup";
+        result.actin = "userGroups";
         String userid = params.get("userid");
-        List<GroupBean> groups = repository.userGroup(userid);
+        List<GroupBean> groups = repository.userGroups(userid);
         result.resultParams = groups;
         return result;
     }

@@ -1,6 +1,7 @@
 package com.chatroom.client;
 
 import com.chatroom.client.contoller.AbstractController;
+import com.chatroom.client.contoller.GroupController;
 import com.chatroom.client.contoller.MessageController;
 import com.chatroom.client.contoller.UserController;
 import com.chatroom.client.protocol.Protocol;
@@ -27,6 +28,7 @@ import static java.lang.Thread.sleep;
 public class ChatClient {
     private Socket socket;
     public UserController user;
+    public GroupController group;
     public MessageController message;
 
     public JLoginView jLoginView;
@@ -38,9 +40,10 @@ public class ChatClient {
     public ChatClient(){
         user = new UserController(this);
         message = new MessageController(this);
-
+        group = new GroupController(this);
         controllers.put("user",user);
         controllers.put("message",message);
+        controllers.put("group",group);
 
         jLoginView = new JLoginView(this);
         jMainView = new JMainView(this);
