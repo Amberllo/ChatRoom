@@ -70,20 +70,14 @@ public class ChatClient {
                                     System.out.println("response data :"+json);
                                 }
                             }
-
                         }
                         sleep(1000);
                     }
-
                 }catch (Exception e){
                     e.printStackTrace();
                 }
-
             }
-
-
         }).start();
-
     }
 
     private void write(String json) {

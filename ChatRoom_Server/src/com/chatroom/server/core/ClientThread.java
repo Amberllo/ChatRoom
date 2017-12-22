@@ -26,7 +26,6 @@ public class ClientThread extends Thread {
         try {
             while (socket != null && !socket.isClosed()) {
 
-
                 while (!queue.isEmpty()) {
                     BroadcastPacket packet = queue.poll();
                     write(socket.getOutputStream(),packet.toJson());
